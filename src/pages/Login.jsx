@@ -20,7 +20,7 @@ export const Login = () => {
             .then(res => res.json())
             .then(authInfo => {
                 if (authInfo.valid) {
-                    localStorage.setItem("gamer_token", JSON.stringify(authInfo.token))
+                    localStorage.setItem("diner_token", JSON.stringify(authInfo.token))
                     localStorage.setItem("user_id", JSON.stringify(authInfo.user_id))
                     navigate("/")
                 } else {
@@ -38,7 +38,7 @@ export const Login = () => {
 
             <section>
                 <form className="form--login" onSubmit={handleLogin}>
-                    <h1 className="text-4xl mt-7 mb-3">Gamer Rater</h1>
+                    <h1 className="text-4xl mt-7 mb-3">findining</h1>
                     <h2 className="text-xl mb-10">Please sign in</h2>
                     <fieldset className="mb-4">
                         <label htmlFor="inputEmail"> Email address </label>
