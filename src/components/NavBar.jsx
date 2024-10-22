@@ -8,7 +8,7 @@ export const NavBar = () => {
                 <Link className="navbar-link" to="/">New Restaurant</Link>
                 <Link className="navbar-link" to="/">My Dishes</Link>
                 <Link className="navbar-link" to="/">Wishlist</Link>
-                <Link className="navbar-link" to="/">Browse</Link>
+                <Link className="navbar-link" to="/browse">Browse</Link>
             </li>
             {
                 (localStorage.getItem("diner_token") !== null) ?
