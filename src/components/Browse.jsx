@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { getRestaurants } from '../managers/restaurantManager'
 import { useEffect, useState } from 'react'
 
@@ -11,7 +12,7 @@ export const Browse = () => {
     return (
         <>
             {restaurants.map(restaurant => (
-                <h2 key={restaurant.id}>{restaurant.name}</h2> 
+               <Link to={`/restaurant/${restaurant.id}`}><h2 key={restaurant.id}>{restaurant.name}</h2></Link>
             ))}
         </>
     )
