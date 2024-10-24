@@ -6,6 +6,7 @@ import { Register } from '../pages/Register.jsx'
 import { Authorized } from "./Authorized.jsx"
 import { Browse } from "./Browse.jsx"
 import { RestaurantDetails } from "./RestaurantDetails.jsx"
+import { NewRestaurant } from "./NewRestaurant.jsx"
 
 
 export const ApplicationViews = () => {
@@ -20,6 +21,7 @@ export const ApplicationViews = () => {
                 <Route path="/browse" element={<Browse />} />
                 <Route path="/restaurant" >
                     <Route path=":restaurantId" element={<RestaurantDetails/>} />
+                    <Route path="new" element={<NewRestaurant />} />
                 </Route>
             </Route>
         </Routes>
