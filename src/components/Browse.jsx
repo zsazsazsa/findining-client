@@ -11,7 +11,7 @@ export const Browse = () => {
 
     return (
         <>
-            {restaurants.map(restaurant => (
+            {restaurants.slice().reverse().map(restaurant => (
                <Link to={`/restaurant/${restaurant.id}`}><h2 key={restaurant.id}>{restaurant.name}</h2></Link>
             ))}
         </>
