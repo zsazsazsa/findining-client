@@ -7,6 +7,7 @@ import { Authorized } from "./Authorized.jsx"
 import { Browse } from "./Browse.jsx"
 import { RestaurantDetails } from "./RestaurantDetails.jsx"
 import { NewRestaurant } from "./NewRestaurant.jsx"
+import { MyDishes } from "./MyDishes.jsx"
 
 
 export const ApplicationViews = () => {
@@ -19,6 +20,7 @@ export const ApplicationViews = () => {
             <Route element={<Authorized />}>
                 <Route path="/" element={<Home />} />
                 <Route path="/browse" element={<Browse />} />
+                <Route path="/mydishes" element={<MyDishes />} />
                 <Route path="/restaurant" >
                     <Route path=":restaurantId" element={<RestaurantDetails/>} />
                     <Route path="new" element={<NewRestaurant />} />
