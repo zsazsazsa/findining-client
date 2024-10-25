@@ -8,6 +8,8 @@ import { Browse } from "./Browse.jsx"
 import { RestaurantDetails } from "./RestaurantDetails.jsx"
 import { NewRestaurant } from "./NewRestaurant.jsx"
 import { MyDishes } from "./MyDishes.jsx"
+import { Wishlist } from "./Wishlist.jsx"
+
 
 
 export const ApplicationViews = () => {
@@ -21,6 +23,7 @@ export const ApplicationViews = () => {
                 <Route path="/" element={<Home />} />
                 <Route path="/browse" element={<Browse />} />
                 <Route path="/mydishes" element={<MyDishes />} />
+                <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/restaurant" >
                     <Route path=":restaurantId" element={<RestaurantDetails/>} />
                     <Route path="new" element={<NewRestaurant />} />
