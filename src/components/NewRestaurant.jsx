@@ -3,6 +3,7 @@ import { getCategories } from "../managers/categoryManager"
 import { getRestaurants, saveRestaurant } from "../managers/restaurantManager"
 import { useNavigate } from "react-router-dom"
 import { saveRestaurantRating } from "../managers/ratingManager"
+import { saveRestaurantReview } from "../managers/reviewManager"
 
 export const NewRestaurant = () => {
 
@@ -36,6 +37,11 @@ export const NewRestaurant = () => {
         rating: 0
     })
 
+    const [newReview, setNewReview] = useState({
+        restaurant: 0,
+        review: ""
+    })
+
     const handleInputChange = (e) => {
         const newCopy = {...newRestaurant}
         newCopy[e.target.name] = (e.target.value)
@@ -50,6 +56,13 @@ export const NewRestaurant = () => {
 
     }
 
+    const handleReview = (e) => {
+        const reviewCopy = {...newReview}
+        reviewCopy['review'] = e.target.value
+        reviewCopy['restaurant'] = lastAddedRestaurant.id + 1
+        setNewReview(reviewCopy)
+    }
+
     const handleCategory = (e) => {
         const newCopy = { ...newRestaurant }
         const selectedCategoryId = parseInt(e.target.value) 
@@ -60,6 +73,7 @@ export const NewRestaurant = () => {
     const handleSave = async (e) => {
         e.preventDefault();
         await saveRestaurant(newRestaurant)
+        saveRestaurantReview(newReview)
         saveRestaurantRating(newRating).then(() => {
             navigate('/browse')
         })
@@ -110,7 +124,7 @@ export const NewRestaurant = () => {
                 </fieldset>
                 <fieldset>
                     <label>Review:</label>
-                    <textarea></textarea>
+                    <textarea onChange={handleReview}></textarea>
                 </fieldset>
                 <button onClick={handleSave}>Save</button>
             </div>
