@@ -23,3 +23,15 @@ export const saveDish = async (dish) => {
         }
     )
 }
+
+export const deleteDish = async (dish) => {
+    await fetch(`${APIurl}dishes/${dish}`,
+        {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            },
+            body: JSON.stringify(dish)
+        }
+    )
+}
