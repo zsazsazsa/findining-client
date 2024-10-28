@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { getCategories } from "../managers/categoryManager"
-import { saveRestaurant } from "../managers/restaurantManager"
+import { getRestaurants, saveRestaurant } from "../managers/restaurantManager"
 import { useNavigate } from "react-router-dom"
+import { saveRestaurantRating } from "../managers/ratingManager"
 
 export const NewRestaurant = () => {
 
@@ -14,16 +15,39 @@ export const NewRestaurant = () => {
         category: 0
     })
 
+    const [restaurants, setRestaurants] = useState([])
+
+    const lastAddedRestaurant = restaurants[restaurants.length -1]
+
     useEffect(()=>{
         getCategories().then(data => {
             setCategories(data)
         })
     }, [])
 
+    useEffect(()=>{
+        getRestaurants().then(data => {
+            setRestaurants(data)
+        })
+    }, [])
+
+    const [newRating, setNewRating] = useState({
+        restaurant: 0,
+        rating: 0
+    })
+
     const handleInputChange = (e) => {
         const newCopy = {...newRestaurant}
         newCopy[e.target.name] = (e.target.value)
         setNewRestaurant(newCopy)
+    }
+
+    const handleRating = (e) => {
+        const ratingCopy = {...newRating}
+        ratingCopy[e.target.name] = parseInt(e.target.value)
+        ratingCopy['restaurant'] = lastAddedRestaurant.id + 1
+        setNewRating(ratingCopy)
+
     }
 
     const handleCategory = (e) => {
@@ -33,13 +57,17 @@ export const NewRestaurant = () => {
         setNewRestaurant(newCopy)
     }
 
-    const handleSave = (e) => {
-        e.preventDefault()
-        saveRestaurant(newRestaurant).then(()=>{
-            navigate("/browse")
+    const handleSave = async (e) => {
+        e.preventDefault();
+        await saveRestaurant(newRestaurant)
+        saveRestaurantRating(newRating).then(() => {
+            navigate('/browse')
         })
-    }
+    };
+    
+    
 
+    
     return (
         <>
             <div>
@@ -67,7 +95,7 @@ export const NewRestaurant = () => {
                 </fieldset>
                 <fieldset>
                     <label>Rating:</label>
-                    <form>
+                    <form onChange={handleRating}>
                         {[1, 2, 3, 4, 5].map((value) => (
                         <label key={value}>
                             <input
