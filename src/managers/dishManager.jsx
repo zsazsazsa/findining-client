@@ -7,8 +7,19 @@ export const getDishes = async () => {
                 Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
             }
         })
-    const restaurants = await response.json()
-    return restaurants
+    const dishes = await response.json()
+    return dishes
+}
+
+export const getDishById = async (dishId) => {
+    const response = await fetch(`${APIurl}dishes/${dishId}`,
+        {
+            headers: {
+                Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            }
+        })
+    const dish = await response.json()
+    return dish
 }
 
 export const saveDish = async (dish) => {
@@ -35,3 +46,17 @@ export const deleteDish = async (dish) => {
         }
     )
 }
+
+export const updateDish = async (dish) => {
+    await fetch(`${APIurl}dishes/${dish.id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            },
+            body: JSON.stringify(dish)
+        }
+    )
+}
+

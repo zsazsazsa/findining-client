@@ -26,6 +26,18 @@ export const saveDishReview = async (dishReview) => {
     )
 }
 
+export const updateDishReview = async (dishReview) => {
+    await fetch(`${APIurl}dish-review/${dishReview.id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            },
+            body: JSON.stringify(dishReview)
+        }
+    )
+}
 
 
 export const getRestaurantReviews = async () => {
@@ -37,4 +49,14 @@ export const getRestaurantReviews = async () => {
         })
     const reviews = await response.json()
     return reviews
+}
+
+export const getDishReviewById = async (id) => {
+    const response = await fetch(`${APIurl}dish-review?dish_id=${id}`, {
+        headers: {
+            Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+        }
+    });
+    const review = await response.json()
+    return review
 }
