@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { getDishes } from "../managers/dishManager"
 import { getRestaurantById } from "../managers/restaurantManager"
+import { getWishlist, saveWish } from "../managers/wishlistManager"
+
 
 export const RestaurantDetails = () => {
 
@@ -9,6 +11,8 @@ export const RestaurantDetails = () => {
     const [restaurant, setRestaurant] = useState({})
     const [dishes, setDishes] = useState([])
     const [filteredDishes, setFilteredDishes] = useState([])
+    const [wishlist, setWishlist] = useState([])
+
 
 
     useEffect(()=>{
@@ -28,14 +32,32 @@ export const RestaurantDetails = () => {
         setFilteredDishes(restaurantDishes)
     },[dishes, restaurantId])
 
+    useEffect(() => {
+        getWishlist().then(data => {
+            const wishlistIds = data.map(item => item.dish.id);
+            setWishlist(wishlistIds);
+        });
+    }, []);
+
+    const handleWishlist = async (e) => {
+        const wish = { dish: parseInt(e.target.value) };
+
+        await saveWish(wish);
+        setWishlist(prevWishlist => [...prevWishlist, wish.dish]);
+    };
+
     return (
         <>
-        <h1>{restaurant.name}</h1>
-        <h2>{restaurant.location}</h2>
-        <Link to={`reviews`}>read reviews</Link>
-        {filteredDishes.map(dish=> (
-            <h2 key={dish.id}>{dish.name}</h2>
-        ))}
+            <h1>{restaurant.name}</h1>
+            <h2>{restaurant.location}</h2>
+            <Link to={`reviews`}>read reviews</Link>
+            {filteredDishes.map(dish => (
+                <div key={dish.id}>
+                    <h2>{dish.name}</h2>
+                    {!wishlist.includes(dish.id) && <button  value={dish.id} onClick={handleWishlist}>Add to Wishlist</button>}
+                </div>
+            ))}
         </>
-    )
+    );
+    
 }
