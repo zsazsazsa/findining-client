@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { getDishes } from "../managers/dishManager"
 import { getRestaurantById } from "../managers/restaurantManager"
 import { getWishlist, saveWish } from "../managers/wishlistManager"
@@ -7,6 +7,7 @@ import { getWishlist, saveWish } from "../managers/wishlistManager"
 
 export const RestaurantDetails = () => {
 
+    const navigate = useNavigate()
     const {restaurantId} = useParams()
     const [restaurant, setRestaurant] = useState({})
     const [dishes, setDishes] = useState([])
@@ -52,11 +53,18 @@ export const RestaurantDetails = () => {
             <h2>{restaurant.location}</h2>
             <Link to={`reviews`}>read reviews</Link>
             {filteredDishes.map(dish => (
-                <div key={dish.id}>
-                    <h2>{dish.name}</h2>
-                    {!wishlist.includes(dish.id) && <button  value={dish.id} onClick={handleWishlist}>Add to Wishlist</button>}
-                </div>
+                <>
+                    <div key={dish.id}>
+                        <h2>{dish.name}</h2>
+                        {!wishlist.includes(dish.id) && <button  value={dish.id} onClick={handleWishlist}>Add to Wishlist</button>}
+                    </div>
+                </>
             ))}
+            <div>
+                <button onClick={()=>{
+                    navigate(`new-dish`)
+                }}>Add a Dish</button>
+            </div>
         </>
     );
     
