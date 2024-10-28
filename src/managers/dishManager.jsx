@@ -10,3 +10,16 @@ export const getDishes = async () => {
     const restaurants = await response.json()
     return restaurants
 }
+
+export const saveDish = async (dish) => {
+    await fetch(`${APIurl}dishes`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            },
+            body: JSON.stringify(dish)
+        }
+    )
+}
