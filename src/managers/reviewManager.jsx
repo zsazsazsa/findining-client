@@ -12,3 +12,14 @@ export const saveRestaurantReview = async (restaurantReview) => {
         }
     )
 }
+
+export const getRestaurantReviews = async () => {
+    const response = await fetch(`${APIurl}restaurant-review`,
+        {
+            headers: {
+                Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            }
+        })
+    const reviews = await response.json()
+    return reviews
+}

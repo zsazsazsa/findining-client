@@ -9,6 +9,7 @@ import { RestaurantDetails } from "./RestaurantDetails.jsx"
 import { NewRestaurant } from "./NewRestaurant.jsx"
 import { MyDishes } from "./MyDishes.jsx"
 import { Wishlist } from "./Wishlist.jsx"
+import { RestaurantReviews } from "./RestaurantReviews.jsx"
 
 
 
@@ -26,6 +27,7 @@ export const ApplicationViews = () => {
                 <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/restaurant" >
                     <Route path=":restaurantId" element={<RestaurantDetails/>} />
+                    <Route path=":restaurantId/reviews" element={<RestaurantReviews/>} />
                     <Route path="new" element={<NewRestaurant />} />
                 </Route>
             </Route>
