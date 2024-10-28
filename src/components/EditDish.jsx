@@ -58,7 +58,7 @@ export const EditDish = () => {
         await updateDish(dish)
         updateDishReview(dishReview)
         updateDishRating(dishRating).then(() => {
-            navigate('/browse')
+            navigate('/mydishes')
         })
     };
     

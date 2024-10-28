@@ -23,3 +23,14 @@ export const saveWish = async (wish) => {
         }
     )
 }
+
+export const removeFromWishlist = async (id) => {
+    await fetch(`${APIurl}wishlist/${id}`,
+        {
+            method: "DELETE",
+            headers: {
+                 "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            }
+        }
+    )
+}
