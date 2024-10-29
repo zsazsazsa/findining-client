@@ -39,8 +39,31 @@ export const updateDishRating = async (dishRating) => {
     )
 }
 
+export const updateRestaurantRating = async (restaurantRating) => {
+    await fetch(`${APIurl}restaurant-rating/${restaurantRating.id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            },
+            body: JSON.stringify(restaurantRating)
+        }
+    )
+}
+
 export const getDishRatingById = async (id) => {
     const response = await fetch(`${APIurl}dish-rating?dish_id=${id}`, {
+        headers: {
+            Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+        }
+    });
+    const rating = await response.json()
+    return rating
+}
+
+export const getRestaurantRatingById = async (id) => {
+    const response = await fetch(`${APIurl}restaurant-rating?restaurant_id=${id}`, {
         headers: {
             Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
         }

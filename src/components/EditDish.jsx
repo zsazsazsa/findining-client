@@ -93,7 +93,7 @@ export const EditDish = () => {
                 </fieldset>
                 <fieldset>
                     <label>Review:</label>
-                    <textarea value={dishReview.review} onChange={handleReview}></textarea>
+                    <textarea value={dishReview?.review} onChange={handleReview}></textarea>
                 </fieldset>
                 <button onClick={handleUpdate}>Save</button>
             </div>

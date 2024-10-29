@@ -7,9 +7,6 @@ import { saveDishReview } from "../managers/reviewManager"
 export const ReviewDish = () => {
 
 
-
-
-//CHANGE GET DISH TO GET WISHLIST ITEM FOR EASIER DELETE
     const navigate = useNavigate()
     const {dishId} = useParams()
     const [dish, setDish] = useState({})
