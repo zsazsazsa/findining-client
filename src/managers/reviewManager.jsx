@@ -1,0 +1,85 @@
+const APIurl = 'http://localhost:8000/'
+
+export const saveRestaurantReview = async (restaurantReview) => {
+    await fetch(`${APIurl}restaurant-review`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            },
+            body: JSON.stringify(restaurantReview)
+        }
+    )
+}
+
+export const saveDishReview = async (dishReview) => {
+    await fetch(`${APIurl}dish-review`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            },
+            body: JSON.stringify(dishReview)
+        }
+    )
+}
+
+export const updateDishReview = async (dishReview) => {
+    await fetch(`${APIurl}dish-review/${dishReview.id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            },
+            body: JSON.stringify(dishReview)
+        }
+    )
+}
+
+export const updateRestaurantReview = async (restaurantReview) => {
+    await fetch(`${APIurl}restaurant-review/${restaurantReview.id}`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            },
+            body: JSON.stringify(restaurantReview)
+        }
+    )
+}
+
+
+export const getRestaurantReviews = async () => {
+    const response = await fetch(`${APIurl}restaurant-review`,
+        {
+            headers: {
+                Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+            }
+        })
+    const reviews = await response.json()
+    return reviews
+}
+
+export const getReviewByDishId = async (id) => {
+    const response = await fetch(`${APIurl}dish-review?dish_id=${id}`, {
+        headers: {
+            Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+        }
+    });
+    const review = await response.json()
+    return review
+}
+
+export const getRestaurantReviewById = async (id) => {
+    const response = await fetch(`${APIurl}restaurant-review?restaurant_id=${id}`, {
+        headers: {
+            Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
+        }
+    });
+    const review = await response.json()
+    return review
+}
