@@ -7,13 +7,13 @@ import { getWishlist, saveWish } from "../managers/wishlistManager"
 
 export const RestaurantDetails = () => {
 
+    const user = localStorage.user_id
     const navigate = useNavigate()
     const {restaurantId} = useParams()
     const [restaurant, setRestaurant] = useState({})
     const [dishes, setDishes] = useState([])
     const [filteredDishes, setFilteredDishes] = useState([])
     const [wishlist, setWishlist] = useState([])
-
 
 
     useEffect(()=>{
@@ -35,10 +35,12 @@ export const RestaurantDetails = () => {
 
     useEffect(() => {
         getWishlist().then(data => {
-            const wishlistIds = data.map(item => item.dish.id);
-            setWishlist(wishlistIds);
-        });
-    }, []);
+            const userWishes = data
+                .filter(wish => wish.user.id === parseInt(user))
+                .map(wish => wish.dish.id)
+            setWishlist(userWishes)
+        })
+    }, [user])
 
     const handleWishlist = async (e) => {
         const wish = { dish: parseInt(e.target.value) };

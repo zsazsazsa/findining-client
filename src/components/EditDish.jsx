@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getDishById, updateDish } from "../managers/dishManager"
-import { getDishRatingById, updateDishRating } from "../managers/ratingManager"
-import { getReviewByDishId, updateDishReview } from "../managers/reviewManager"
+import { getDishRatingById, saveDishRating, updateDishRating } from "../managers/ratingManager"
+import { getReviewByDishId, saveDishReview, updateDishReview } from "../managers/reviewManager"
 
 export const EditDish = () => {
 
@@ -40,7 +40,7 @@ export const EditDish = () => {
     const handleRating = (e) => {
         const ratingCopy = {...dishRating}
         ratingCopy['rating'] = parseInt(e.target.value)
-        ratingCopy['dish'] = dishId
+        ratingCopy['dish'] = parseInt(dishId)
         setDishRating(ratingCopy)
 
     }
@@ -48,18 +48,29 @@ export const EditDish = () => {
     const handleReview = (e) => {
         const reviewCopy = {...dishReview}
         reviewCopy['review'] = e.target.value
-        reviewCopy['dish'] = dishId
+        reviewCopy['dish'] = parseInt(dishId)
         setDishReview(reviewCopy)
     }
 
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+
         await updateDish(dish)
-        updateDishReview(dishReview)
-        updateDishRating(dishRating).then(() => {
-            navigate('/mydishes')
-        })
+    
+        if (dishReview && dishReview.id) {
+            await updateDishReview(dishReview);
+        } else {
+            await saveDishReview({ ...dishReview, dish: parseInt(dishId) });
+        }
+    
+        if (dishRating && dishRating.id) {
+            await updateDishRating(dishRating);
+        } else {
+            await saveDishRating({ ...dishRating, dish: parseInt(dishId) });
+        }
+    
+        navigate('/mydishes');
     };
     
     

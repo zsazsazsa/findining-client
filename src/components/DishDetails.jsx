@@ -42,9 +42,13 @@ export const DishDetails = () => {
             <h1>{dish.name}</h1>
             <h2>from {dish.restaurant?.name}</h2>
             <h3>Reviews:</h3>
-            {reviews.map(review => {
-                return <p key={review.id}>{review.review}</p>
-            })}
+            {reviews.length > 0 ? (
+                reviews.map(review => (
+                    <p key={review.id}>{review.review}</p>
+                ))
+            ) : (
+                <p>No reviews available for this dish yet.</p>
+            )}
             {!wishlist.includes(dish.id) && <button  value={dish.id} onClick={handleWishlist}>Add to Wishlist</button>}
         </>
     )
