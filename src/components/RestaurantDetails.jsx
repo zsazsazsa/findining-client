@@ -55,7 +55,7 @@ export const RestaurantDetails = () => {
             {filteredDishes.map(dish => (
                 <>
                     <div key={dish.id}>
-                        <h2>{dish.name}</h2>
+                        <Link to={`/dish/${dish.id}`}>{dish.name}</Link>
                         {!wishlist.includes(dish.id) && <button  value={dish.id} onClick={handleWishlist}>Add to Wishlist</button>}
                     </div>
                 </>

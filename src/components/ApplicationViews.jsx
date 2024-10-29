@@ -13,6 +13,7 @@ import { RestaurantReviews } from "./RestaurantReviews.jsx"
 import { NewDish } from "./NewDish.jsx"
 import { EditDish } from "./EditDish.jsx"
 import { ReviewDish } from "./ReviewDish.jsx"
+import { DishDetails } from "./DishDetails.jsx"
 
 
 
@@ -35,7 +36,7 @@ export const ApplicationViews = () => {
                     <Route path="new" element={<NewRestaurant />} />
                 </Route>
                 <Route path="/dish">
-                    <Route path=":dishId" />
+                    <Route path=":dishId" element={<DishDetails />} />
                     <Route path=":dishId/edit" element={<EditDish />} />
                     <Route path=":dishId/review" element={<ReviewDish />} />
                 </Route>
