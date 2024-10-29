@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { deleteDish, getDishes } from "../managers/dishManager"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 export const MyDishes = () => {
 
@@ -33,7 +33,7 @@ export const MyDishes = () => {
             <div>
                 {myDishes.map(dish => (
                     <>
-                        <h2 key={dish.id}>{dish.name}</h2>
+                        <Link to={`/dish/${dish.id}`}><h2 key={dish.id}>{dish.name}</h2></Link>
                         <button value={dish.id} onClick={()=>{
                             navigate(`../dish/${dish.id}/edit`)
                         }}>Edit</button>
