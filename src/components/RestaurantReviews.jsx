@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { getRestaurantReviews } from "../managers/reviewManager"
 
 export const RestaurantReviews = () => {
 
+    const navigate = useNavigate()
+    const user = localStorage.user_id
     const {restaurantId} = useParams()
     const [allReviews, setAllReviews] = useState([])
     const [filteredReviews, setFilteredReviews] = useState([])
@@ -22,7 +24,14 @@ export const RestaurantReviews = () => {
     return (
         <>
             {filteredReviews.map(item => {
-                return <p key={item.id}>{item.review}</p>
+                return (
+                    <>
+                        <p key={item.id}>{item.review}</p>
+                        {item.user.id == user && <button onClick={() => {
+                            navigate(`edit`)
+                        }}>Edit Review</button>}
+                    </>
+            )
             })}
         </>
     )
