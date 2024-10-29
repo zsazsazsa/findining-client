@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getDishById, updateDish } from "../managers/dishManager"
 import { getDishRatingById, updateDishRating } from "../managers/ratingManager"
-import { getDishReviewById, updateDishReview } from "../managers/reviewManager"
+import { getReviewByDishId, updateDishReview } from "../managers/reviewManager"
 
 export const EditDish = () => {
 
@@ -26,7 +26,7 @@ export const EditDish = () => {
     }, [dishId])
 
     useEffect(()=>{
-        getDishReviewById(dishId).then(data => {
+        getReviewByDishId(dishId).then(data => {
             setDishReview(data[0])
         })
     }, [dishId])

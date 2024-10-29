@@ -51,7 +51,7 @@ export const getRestaurantReviews = async () => {
     return reviews
 }
 
-export const getDishReviewById = async (id) => {
+export const getReviewByDishId = async (id) => {
     const response = await fetch(`${APIurl}dish-review?dish_id=${id}`, {
         headers: {
             Authorization: `Token ${JSON.parse(localStorage.getItem("diner_token"))}`
